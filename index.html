@@ -1,0 +1,2442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SaleSight — Merchant Opportunity Intelligence</title>
+
+    <meta
+        name="description"
+        content="SaleSight is a proposed merchant opportunity intelligence system that identifies missed opportunities, detects emerging demand and evaluates possible business decisions."
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<header class="navbar" id="navbar">
+
+    <div class="nav-container">
+
+        <a href="#top" class="brand">
+            <img
+                src="assets/salesight-logo.png"
+                alt="SaleSight"
+                class="brand-logo"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+            >
+
+            <span class="brand-fallback">
+                SaleSight <span>✦</span>
+            </span>
+        </a>
+
+        <nav class="nav-links">
+
+            <a href="#opportunity">Opportunity</a>
+            <a href="#intelligence">Intelligence</a>
+            <a href="#simulator">Simulator</a>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#architecture">Architecture</a>
+
+        </nav>
+
+        <div class="nav-right">
+
+            <span class="track-label">
+                Paytm Build for India AI Hackathon
+            </span>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main id="top">
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero section">
+
+    <div class="hero-glow glow-one"></div>
+    <div class="hero-glow glow-two"></div>
+
+    <div class="container hero-grid">
+
+        <div class="hero-content reveal">
+
+            <div class="eyebrow">
+                TRACK 1 · MERCHANT GROWTH AI
+            </div>
+
+            <h1>
+                The transaction tells you
+                <span>what happened.</span>
+                The opportunity tells you
+                <strong>what could happen next.</strong>
+            </h1>
+
+            <p class="hero-description">
+                SaleSight is a proposed merchant opportunity intelligence
+                system designed to uncover incomplete conversions, detect
+                emerging demand and help merchants evaluate decisions before
+                acting.
+            </p>
+
+            <div class="hero-actions">
+
+                <a href="#intelligence" class="btn btn-primary">
+                    See how it works
+                    <span>↓</span>
+                </a>
+
+                <a href="#simulator" class="btn btn-secondary">
+                    Try the concept
+                    <span>→</span>
+                </a>
+
+            </div>
+
+            <div class="hero-note">
+                <span class="status-dot"></span>
+                Interactive concept simulation
+            </div>
+
+        </div>
+
+
+        <div class="hero-visual reveal">
+
+            <div class="signal-card signal-card-one">
+                <div class="signal-icon">↗</div>
+                <div>
+                    <small>Demand signal</small>
+                    <strong>+18%</strong>
+                </div>
+            </div>
+
+            <div class="hero-dashboard">
+
+                <div class="dashboard-topbar">
+
+                    <div class="mini-brand">
+                        SaleSight <span>✦</span>
+                    </div>
+
+                    <div class="mini-status">
+                        Opportunity Intelligence
+                    </div>
+
+                </div>
+
+                <div class="hero-dashboard-title">
+                    <small>MERCHANT INTELLIGENCE</small>
+
+                    <h3>
+                        See the opportunities
+                        hidden between transactions.
+                    </h3>
+                </div>
+
+                <div class="mini-metrics">
+
+                    <div>
+                        <span>Near-Sales</span>
+                        <strong>186</strong>
+                        <small>+28%</small>
+                    </div>
+
+                    <div>
+                        <span>Demand Signals</span>
+                        <strong>5</strong>
+                        <small>+2 new</small>
+                    </div>
+
+                    <div>
+                        <span>Actions</span>
+                        <strong>3</strong>
+                        <small>High impact</small>
+                    </div>
+
+                </div>
+
+                <div class="mini-journey">
+
+                    <div class="journey-label">
+                        Transaction & Opportunity Journey
+                    </div>
+
+                    <div class="journey-line">
+
+                        <span class="journey-node active"></span>
+                        <span class="journey-node"></span>
+                        <span class="journey-node warning"></span>
+                        <span class="journey-node opportunity"></span>
+                        <span class="journey-node success"></span>
+
+                    </div>
+
+                    <div class="journey-gap">
+                        OPPORTUNITY GAP
+                        <strong>186 potential sales</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="signal-card signal-card-two">
+                <div class="signal-icon purple">✦</div>
+                <div>
+                    <small>Opportunity score</small>
+                    <strong>82 / 100</strong>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     OPPORTUNITY GAP
+========================================================= -->
+
+<section class="section section-light" id="opportunity">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+
+            <div class="eyebrow">
+                THE OPPORTUNITY GAP
+            </div>
+
+            <h2>
+                A completed transaction is only
+                the visible part of the story.
+            </h2>
+
+            <p>
+                Traditional merchant analytics explain completed sales.
+                SaleSight focuses on the signals surrounding them — where
+                conversion may have broken, where demand may be changing,
+                and where a different decision could produce a different
+                outcome.
+            </p>
+
+        </div>
+
+
+        <div class="opportunity-cards">
+
+            <article class="opportunity-card reveal">
+
+                <div class="card-number">01</div>
+
+                <div class="opportunity-icon coral">
+                    ↗
+                </div>
+
+                <h3>
+                    A customer almost bought
+                </h3>
+
+                <p>
+                    A payment fails, a customer retries, or engagement
+                    stops before completion.
+                </p>
+
+                <div class="card-bottom">
+                    <span>Incomplete conversion signal</span>
+                    <span>→</span>
+                </div>
+
+            </article>
+
+
+            <article class="opportunity-card reveal">
+
+                <div class="card-number">02</div>
+
+                <div class="opportunity-icon purple">
+                    ≋
+                </div>
+
+                <h3>
+                    Demand is beginning to shift
+                </h3>
+
+                <p>
+                    A category or product starts behaving differently before
+                    the change becomes obvious in ordinary reports.
+                </p>
+
+                <div class="card-bottom">
+                    <span>Emerging demand signal</span>
+                    <span>→</span>
+                </div>
+
+            </article>
+
+
+            <article class="opportunity-card reveal">
+
+                <div class="card-number">03</div>
+
+                <div class="opportunity-icon teal">
+                    ◇
+                </div>
+
+                <h3>
+                    A decision is about to be made
+                </h3>
+
+                <p>
+                    A merchant considers changing price, discount, promotion
+                    or inventory without knowing the possible outcome.
+                </p>
+
+                <div class="card-bottom">
+                    <span>Decision uncertainty</span>
+                    <span>→</span>
+                </div>
+
+            </article>
+
+        </div>
+
+
+        <div class="opportunity-statement reveal">
+
+            <div class="statement-line"></div>
+
+            <div>
+                <span class="statement-label">SALE SIGHT FOCUS</span>
+
+                <h3>
+                    What was missed
+                    <span>→</span>
+                    What is changing
+                    <span>→</span>
+                    What could happen next
+                </h3>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     HOW SALESIGHT THINKS
+========================================================= -->
+
+<section class="section" id="intelligence">
+
+    <div class="container">
+
+        <div class="section-heading centered reveal">
+
+            <div class="eyebrow">
+                HOW SALESIGHT THINKS
+            </div>
+
+            <h2>
+                Three intelligence engines.
+                One opportunity-aware merchant.
+            </h2>
+
+            <p>
+                The system converts transaction and behavioural signals into
+                merchant-oriented intelligence rather than another sales
+                dashboard.
+            </p>
+
+        </div>
+
+
+        <div class="intelligence-flow">
+
+            <div class="intelligence-card recover reveal">
+
+                <div class="engine-top">
+
+                    <span class="engine-number">01</span>
+
+                    <span class="engine-tag">
+                        RECOVER
+                    </span>
+
+                </div>
+
+                <div class="engine-icon">↗</div>
+
+                <h3>Near-Sale Intelligence</h3>
+
+                <p>
+                    Surfaces potentially recoverable opportunities from
+                    failed attempts, retries, transaction friction and
+                    unusual conversion gaps.
+                </p>
+
+                <button
+                    class="text-button"
+                    data-modal="recoverModal"
+                >
+                    See how it works →
+                </button>
+
+            </div>
+
+
+            <div class="flow-arrow">→</div>
+
+
+            <div class="intelligence-card anticipate reveal">
+
+                <div class="engine-top">
+
+                    <span class="engine-number">02</span>
+
+                    <span class="engine-tag">
+                        ANTICIPATE
+                    </span>
+
+                </div>
+
+                <div class="engine-icon">≋</div>
+
+                <h3>Demand Early-Echo</h3>
+
+                <p>
+                    Compares recent and historical patterns to identify
+                    emerging product or category movement before it becomes
+                    obvious.
+                </p>
+
+                <button
+                    class="text-button"
+                    data-modal="demandModal"
+                >
+                    See how it works →
+                </button>
+
+            </div>
+
+
+            <div class="flow-arrow">→</div>
+
+
+            <div class="intelligence-card simulate reveal">
+
+                <div class="engine-top">
+
+                    <span class="engine-number">03</span>
+
+                    <span class="engine-tag">
+                        SIMULATE
+                    </span>
+
+                </div>
+
+                <div class="engine-icon">◇</div>
+
+                <h3>Decision Sandbox</h3>
+
+                <p>
+                    Evaluates hypothetical pricing, discount, offer, bundle
+                    or inventory decisions before execution.
+                </p>
+
+                <button
+                    class="text-button"
+                    data-scroll="#simulator"
+                >
+                    Try the concept →
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     OPPORTUNITY JOURNEY INTERACTION
+========================================================= -->
+
+<section class="section section-dark" id="journey">
+
+    <div class="container">
+
+        <div class="dark-heading reveal">
+
+            <div class="eyebrow">
+                INTERACTIVE CONCEPT
+            </div>
+
+            <h2>
+                Follow an opportunity through the transaction journey.
+            </h2>
+
+            <p>
+                Select a friction point to see how multiple signals can
+                combine into an opportunity indicator.
+            </p>
+
+        </div>
+
+
+        <div class="journey-experience reveal">
+
+            <div class="journey-stages">
+
+                <button class="journey-stage active" data-stage="browse">
+                    <span>01</span>
+                    <strong>Browse</strong>
+                    <small>Product interest</small>
+                </button>
+
+                <button class="journey-stage" data-stage="attempt">
+                    <span>02</span>
+                    <strong>Attempt</strong>
+                    <small>Checkout / payment</small>
+                </button>
+
+                <button class="journey-stage" data-stage="friction">
+                    <span>03</span>
+                    <strong>Friction</strong>
+                    <small>Payment / price issue</small>
+                </button>
+
+                <button class="journey-stage" data-stage="retry">
+                    <span>04</span>
+                    <strong>Retry</strong>
+                    <small>Customer returns</small>
+                </button>
+
+                <button class="journey-stage" data-stage="exit">
+                    <span>05</span>
+                    <strong>Exit</strong>
+                    <small>Incomplete conversion</small>
+                </button>
+
+            </div>
+
+
+            <div class="journey-visual">
+
+                <div class="journey-track">
+
+                    <div class="track-progress" id="trackProgress"></div>
+
+                    <span class="track-dot d1"></span>
+                    <span class="track-dot d2"></span>
+                    <span class="track-dot d3"></span>
+                    <span class="track-dot d4"></span>
+                    <span class="track-dot d5"></span>
+
+                </div>
+
+                <div class="journey-message" id="journeyMessage">
+
+                    <span class="message-label">
+                        CURRENT SIGNAL
+                    </span>
+
+                    <h3>
+                        Product engagement detected
+                    </h3>
+
+                    <p>
+                        The customer viewed and interacted with the product.
+                        Engagement alone does not imply a lost sale.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="opportunity-result">
+
+                <div class="result-label">
+                    ILLUSTRATIVE OPPORTUNITY SIGNAL
+                </div>
+
+                <div class="score-display">
+
+                    <div class="score-ring">
+                        <span id="journeyScore">54</span>
+                        <small>/100</small>
+                    </div>
+
+                    <div>
+
+                        <h3 id="journeyResultTitle">
+                            Early opportunity signal
+                        </h3>
+
+                        <p id="journeyResultText">
+                            Additional behavioural evidence is required.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="confidence-bar">
+
+                    <div>
+                        <span>Confidence</span>
+                        <strong id="journeyConfidence">51%</strong>
+                    </div>
+
+                    <div class="bar">
+                        <span id="confidenceFill"></span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <p class="simulation-note dark-note">
+            Illustrative simulation using sample merchant signals.
+            It does not represent live Paytm transaction data.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     RECOVER
+========================================================= -->
+
+<section class="section" id="recover">
+
+    <div class="container feature-layout">
+
+        <div class="feature-copy reveal">
+
+            <div class="eyebrow coral-text">
+                01 · RECOVER
+            </div>
+
+            <h2>
+                Find the sales that
+                almost happened.
+            </h2>
+
+            <p>
+                Near-sale detection looks for patterns associated with
+                incomplete conversion rather than treating every failed
+                payment as a lost sale.
+            </p>
+
+            <div class="feature-list">
+
+                <div>
+                    <span>01</span>
+                    <p>Payment failures and retries</p>
+                </div>
+
+                <div>
+                    <span>02</span>
+                    <p>Product engagement and basket behaviour</p>
+                </div>
+
+                <div>
+                    <span>03</span>
+                    <p>Repeat customer patterns</p>
+                </div>
+
+                <div>
+                    <span>04</span>
+                    <p>Historical conversion behaviour</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="explain-card reveal">
+
+            <div class="explain-header">
+
+                <span>WHY THIS OPPORTUNITY?</span>
+
+                <strong>82 / 100</strong>
+
+            </div>
+
+            <div class="explain-body">
+
+                <div class="signal-row">
+                    <span>Payment friction</span>
+                    <div class="signal-bar">
+                        <i style="width: 86%"></i>
+                    </div>
+                    <strong>35%</strong>
+                </div>
+
+                <div class="signal-row">
+                    <span>Repeat behaviour</span>
+                    <div class="signal-bar">
+                        <i style="width: 67%"></i>
+                    </div>
+                    <strong>25%</strong>
+                </div>
+
+                <div class="signal-row">
+                    <span>Product engagement</span>
+                    <div class="signal-bar">
+                        <i style="width: 54%"></i>
+                    </div>
+                    <strong>20%</strong>
+                </div>
+
+                <div class="signal-row">
+                    <span>Recent activity</span>
+                    <div class="signal-bar">
+                        <i style="width: 42%"></i>
+                    </div>
+                    <strong>15%</strong>
+                </div>
+
+                <div class="signal-row">
+                    <span>Historical pattern</span>
+                    <div class="signal-bar">
+                        <i style="width: 24%"></i>
+                    </div>
+                    <strong>5%</strong>
+                </div>
+
+            </div>
+
+            <div class="explain-footer">
+
+                <span>INTERPRETATION</span>
+
+                <p>
+                    Multiple signals indicate incomplete conversion
+                    potential — not a confirmed lost sale.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     DEMAND EARLY ECHO
+========================================================= -->
+
+<section class="section section-soft" id="demand">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+
+            <div class="eyebrow purple-text">
+                02 · ANTICIPATE
+            </div>
+
+            <h2>
+                Detect demand while it is
+                still becoming a trend.
+            </h2>
+
+            <p>
+                SaleSight compares recent activity with historical behaviour
+                to identify unusual movement across relevant categories.
+            </p>
+
+        </div>
+
+
+        <div class="demand-panel reveal">
+
+            <div class="demand-controls">
+
+                <div>
+
+                    <label>Category</label>
+
+                    <select id="categorySelect">
+                        <option value="beverages">Beverages</option>
+                        <option value="snacks">Snacks</option>
+                        <option value="personal">Personal Care</option>
+                        <option value="household">Household Essentials</option>
+                    </select>
+
+                </div>
+
+                <div class="demand-signal-summary">
+
+                    <span>Illustrative demand signal</span>
+
+                    <strong id="demandValue">
+                        +18%
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="chart-area">
+
+                <div class="chart-labels">
+                    <span>Activity</span>
+                    <span>Recent</span>
+                </div>
+
+                <svg
+                    viewBox="0 0 900 300"
+                    preserveAspectRatio="none"
+                    class="demand-chart"
+                    aria-label="Illustrative demand trend"
+                >
+
+                    <defs>
+
+                        <linearGradient
+                            id="chartGradient"
+                            x1="0"
+                            x2="0"
+                            y1="0"
+                            y2="1"
+                        >
+                            <stop offset="0%" stop-opacity=".22"/>
+                            <stop offset="100%" stop-opacity="0"/>
+                        </linearGradient>
+
+                    </defs>
+
+                    <path
+                        id="chartFill"
+                        d="M0 245 C90 225 120 230 180 210 C240 190 270 205 330 170 C390 140 430 175 490 145 C550 115 600 130 660 95 C720 70 770 90 820 55 C850 40 875 50 900 25 L900 300 L0 300 Z"
+                    ></path>
+
+                    <path
+                        id="chartPath"
+                        d="M0 245 C90 225 120 230 180 210 C240 190 270 205 330 170 C390 140 430 175 490 145 C550 115 600 130 660 95 C720 70 770 90 820 55 C850 40 875 50 900 25"
+                    ></path>
+
+                    <line x1="0" y1="245" x2="900" y2="245" class="baseline"/>
+                    <line x1="0" y1="170" x2="900" y2="170" class="grid-line"/>
+                    <line x1="0" y1="95" x2="900" y2="95" class="grid-line"/>
+
+                </svg>
+
+                <div class="chart-dates">
+                    <span>Week 1</span>
+                    <span>Week 2</span>
+                    <span>Week 3</span>
+                    <span>Week 4</span>
+                    <span>Emerging</span>
+                </div>
+
+            </div>
+
+
+            <div class="demand-explanation">
+
+                <div>
+                    <span>DETECTED PATTERN</span>
+                    <strong id="demandPattern">
+                        Activity is moving above historical baseline.
+                    </strong>
+                </div>
+
+                <div>
+                    <span>POSSIBLE INTERPRETATION</span>
+                    <strong id="demandInterpretation">
+                        Rising category interest.
+                    </strong>
+                </div>
+
+                <div>
+                    <span>NEXT STEP</span>
+                    <strong>
+                        Review inventory or promotion options.
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+        <p class="simulation-note">
+            Demand values shown above are illustrative and are not actual
+            forecasts or live market measurements.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     DECISION SANDBOX
+========================================================= -->
+
+<section class="section" id="simulator">
+
+    <div class="container">
+
+        <div class="section-heading centered reveal">
+
+            <div class="eyebrow teal-text">
+                03 · SIMULATE
+            </div>
+
+            <h2>
+                Change the decision.
+                See the possible outcome.
+            </h2>
+
+            <p>
+                Test a hypothetical merchant decision before execution.
+                Adjust the scenario and compare its illustrative outcome
+                against the current baseline.
+            </p>
+
+        </div>
+
+
+        <div class="sandbox reveal">
+
+            <div class="sandbox-controls">
+
+                <div class="sandbox-heading">
+
+                    <span>DECISION SANDBOX</span>
+
+                    <h3>
+                        What if I change the price?
+                    </h3>
+
+                </div>
+
+
+                <div class="control-group">
+
+                    <div class="control-title">
+
+                        <label for="priceSlider">
+                            Simulated price
+                        </label>
+
+                        <strong>
+                            ₹<span id="priceValue">450</span>
+                        </strong>
+
+                    </div>
+
+                    <input
+                        type="range"
+                        id="priceSlider"
+                        min="350"
+                        max="550"
+                        value="450"
+                        step="10"
+                    >
+
+                    <div class="range-labels">
+                        <span>₹350</span>
+                        <span>₹550</span>
+                    </div>
+
+                </div>
+
+
+                <div class="control-group">
+
+                    <div class="control-title">
+
+                        <label for="discountSlider">
+                            Discount
+                        </label>
+
+                        <strong>
+                            <span id="discountValue">10</span>%
+                        </strong>
+
+                    </div>
+
+                    <input
+                        type="range"
+                        id="discountSlider"
+                        min="0"
+                        max="25"
+                        value="10"
+                        step="1"
+                    >
+
+                    <div class="range-labels">
+                        <span>0%</span>
+                        <span>25%</span>
+                    </div>
+
+                </div>
+
+
+                <div class="control-group">
+
+                    <div class="control-title">
+
+                        <label for="durationSlider">
+                            Promotion duration
+                        </label>
+
+                        <strong>
+                            <span id="durationValue">7</span> days
+                        </strong>
+
+                    </div>
+
+                    <input
+                        type="range"
+                        id="durationSlider"
+                        min="1"
+                        max="30"
+                        value="7"
+                        step="1"
+                    >
+
+                    <div class="range-labels">
+                        <span>1 day</span>
+                        <span>30 days</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="sandbox-result">
+
+                <div class="scenario-comparison">
+
+                    <div class="scenario-column">
+
+                        <span>BASELINE</span>
+
+                        <strong>₹500</strong>
+
+                        <small>Current price</small>
+
+                    </div>
+
+                    <div class="scenario-arrow">
+                        →
+                    </div>
+
+                    <div class="scenario-column active">
+
+                        <span>SIMULATED</span>
+
+                        <strong>
+                            ₹<span id="simulatedPrice">450</span>
+                        </strong>
+
+                        <small>Scenario price</small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="scenario-delta">
+
+                    <span>
+                        ILLUSTRATIVE SCENARIO DELTA
+                    </span>
+
+                    <strong id="scenarioDelta">
+                        +12%
+                    </strong>
+
+                    <p id="scenarioText">
+                        Estimated sales movement under this scenario.
+                    </p>
+
+                </div>
+
+
+                <div class="scenario-metrics">
+
+                    <div>
+                        <span>Expected demand</span>
+                        <strong id="expectedDemand">112</strong>
+                    </div>
+
+                    <div>
+                        <span>Illustrative revenue</span>
+                        <strong id="expectedRevenue">₹50,400</strong>
+                    </div>
+
+                    <div>
+                        <span>Confidence</span>
+                        <strong id="scenarioConfidence">78%</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="scenario-note reveal">
+
+            <div class="note-icon">i</div>
+
+            <div>
+
+                <strong>
+                    Why this is a scenario, not a promise
+                </strong>
+
+                <p>
+                    The figures above represent an illustrative counterfactual
+                    simulation. Actual outcomes depend on customer behaviour,
+                    competition, inventory, timing and other factors.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SCENARIO COMPARISON
+========================================================= -->
+
+<section class="section section-soft">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+
+            <div class="eyebrow teal-text">
+                DECISION SUPPORT
+            </div>
+
+            <h2>
+                Compare possible actions —
+                don't let the model choose for you.
+            </h2>
+
+            <p>
+                A merchant can evaluate multiple scenarios and retain
+                control over the final business decision.
+            </p>
+
+        </div>
+
+
+        <div class="decision-table reveal">
+
+            <div class="decision-row decision-header">
+
+                <span>Possible action</span>
+                <span>Volume</span>
+                <span>Margin</span>
+                <span>Illustrative effect</span>
+
+            </div>
+
+
+            <button class="decision-row decision-option active"
+                data-decision="discount">
+
+                <span>
+                    <strong>10% discount</strong>
+                    <small>Increase promotional reach</small>
+                </span>
+
+                <span>↑</span>
+                <span>↓</span>
+                <span class="positive">+12%</span>
+
+            </button>
+
+
+            <button class="decision-row decision-option"
+                data-decision="bundle">
+
+                <span>
+                    <strong>Bundle offer</strong>
+                    <small>Combine complementary products</small>
+                </span>
+
+                <span>↑</span>
+                <span>→</span>
+                <span class="positive">+9%</span>
+
+            </button>
+
+
+            <button class="decision-row decision-option"
+                data-decision="inventory">
+
+                <span>
+                    <strong>Increase inventory</strong>
+                    <small>Prepare for emerging demand</small>
+                </span>
+
+                <span>↑</span>
+                <span>→</span>
+                <span class="positive">+7%</span>
+
+            </button>
+
+
+            <button class="decision-row decision-option"
+                data-decision="none">
+
+                <span>
+                    <strong>No intervention</strong>
+                    <small>Maintain current strategy</small>
+                </span>
+
+                <span>→</span>
+                <span>→</span>
+                <span>Baseline</span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     DASHBOARD
+========================================================= -->
+
+<section class="section" id="dashboard">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+
+            <div class="eyebrow">
+                PROPOSED MERCHANT EXPERIENCE
+            </div>
+
+            <h2>
+                The model is complex.
+                The merchant experience shouldn't be.
+            </h2>
+
+            <p>
+                Instead of exposing machine-learning complexity, SaleSight
+                translates intelligence into understandable opportunity
+                signals, confidence indicators and recommended actions.
+            </p>
+
+        </div>
+
+
+        <div class="dashboard-showcase reveal">
+
+            <div class="dashboard-image-wrapper">
+
+                <img
+                    src="assets/dashboard.jpeg"
+                    alt="SaleSight proposed merchant dashboard"
+                    class="dashboard-image"
+                >
+
+                <button
+                    class="hotspot hotspot-one"
+                    data-hotspot="nearSale"
+                    aria-label="Near-Sale Intelligence"
+                >
+                    <span>+</span>
+                </button>
+
+                <button
+                    class="hotspot hotspot-two"
+                    data-hotspot="demand"
+                    aria-label="Demand Intelligence"
+                >
+                    <span>+</span>
+                </button>
+
+                <button
+                    class="hotspot hotspot-three"
+                    data-hotspot="simulator"
+                    aria-label="Decision Simulator"
+                >
+                    <span>+</span>
+                </button>
+
+                <button
+                    class="hotspot hotspot-four"
+                    data-hotspot="recommendations"
+                    aria-label="Recommendations"
+                >
+                    <span>+</span>
+                </button>
+
+            </div>
+
+
+            <div class="hotspot-info" id="hotspotInfo">
+
+                <span>INTERACTIVE DASHBOARD GUIDE</span>
+
+                <h3>
+                    Click a highlighted area
+                </h3>
+
+                <p>
+                    Explore how the proposed interface translates
+                    opportunity intelligence into merchant-facing information.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-principles">
+
+            <div>
+                <span>01</span>
+                <strong>Opportunity Score</strong>
+                <p>How strong is the detected signal?</p>
+            </div>
+
+            <div>
+                <span>02</span>
+                <strong>Demand Signal</strong>
+                <p>What appears to be changing?</p>
+            </div>
+
+            <div>
+                <span>03</span>
+                <strong>Scenario Delta</strong>
+                <p>What could change under a decision?</p>
+            </div>
+
+            <div>
+                <span>04</span>
+                <strong>Recommended Action</strong>
+                <p>What could the merchant consider next?</p>
+            </div>
+
+        </div>
+
+
+        <p class="simulation-note">
+            Dashboard shown is an illustrative proposed interface and does
+            not represent a live Paytm merchant dashboard.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SIGNAL TO ACTION
+========================================================= -->
+
+<section class="section section-dark" id="action">
+
+    <div class="container">
+
+        <div class="dark-heading centered reveal">
+
+            <div class="eyebrow">
+                FROM SIGNAL TO ACTION
+            </div>
+
+            <h2>
+                Intelligence becomes useful
+                only when it reaches a decision.
+            </h2>
+
+        </div>
+
+
+        <div class="action-flow reveal">
+
+            <div class="action-step">
+
+                <div class="action-icon">01</div>
+
+                <span>SIGNAL</span>
+
+                <h3>
+                    18 payment failures
+                </h3>
+
+                <p>
+                    A cluster of incomplete payment attempts is detected.
+                </p>
+
+            </div>
+
+
+            <div class="action-connector">→</div>
+
+
+            <div class="action-step">
+
+                <div class="action-icon">02</div>
+
+                <span>INTELLIGENCE</span>
+
+                <h3>
+                    High recovery potential
+                </h3>
+
+                <p>
+                    Other behavioural signals strengthen the opportunity.
+                </p>
+
+            </div>
+
+
+            <div class="action-connector">→</div>
+
+
+            <div class="action-step">
+
+                <div class="action-icon">03</div>
+
+                <span>ACTION</span>
+
+                <h3>
+                    Review recovery option
+                </h3>
+
+                <p>
+                    The merchant evaluates a possible response.
+                </p>
+
+            </div>
+
+
+            <div class="action-connector">→</div>
+
+
+            <div class="action-step">
+
+                <div class="action-icon">04</div>
+
+                <span>OUTCOME</span>
+
+                <h3>
+                    Observe what happened
+                </h3>
+
+                <p>
+                    The resulting outcome becomes another signal.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     OPPORTUNITY HISTORY
+========================================================= -->
+
+<section class="section" id="history">
+
+    <div class="container history-layout">
+
+        <div class="history-copy reveal">
+
+            <div class="eyebrow purple-text">
+                OPPORTUNITY HISTORY
+            </div>
+
+            <h2>
+                Intelligence shouldn't disappear
+                after one decision.
+            </h2>
+
+            <p>
+                A merchant can review previously detected opportunities,
+                decisions and observed outcomes to understand how their
+                opportunity landscape changes over time.
+            </p>
+
+            <div class="history-summary">
+
+                <div>
+                    <strong>24</strong>
+                    <span>Signals reviewed</span>
+                </div>
+
+                <div>
+                    <strong>8</strong>
+                    <span>Actions recorded</span>
+                </div>
+
+                <div>
+                    <strong>5</strong>
+                    <span>Emerging trends</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="timeline reveal">
+
+            <div class="timeline-line"></div>
+
+
+            <button class="timeline-item active" data-history="mon">
+
+                <span class="timeline-dot"></span>
+
+                <div>
+                    <small>MON · NEAR-SALE</small>
+                    <strong>Recovery opportunity</strong>
+                    <p>Score 72 / 100</p>
+                </div>
+
+            </button>
+
+
+            <button class="timeline-item" data-history="tue">
+
+                <span class="timeline-dot"></span>
+
+                <div>
+                    <small>TUE · DEMAND</small>
+                    <strong>Beverage activity rising</strong>
+                    <p>Signal +18%</p>
+                </div>
+
+            </button>
+
+
+            <button class="timeline-item" data-history="wed">
+
+                <span class="timeline-dot"></span>
+
+                <div>
+                    <small>WED · NEAR-SALE</small>
+                    <strong>Repeat customer friction</strong>
+                    <p>Score 81 / 100</p>
+                </div>
+
+            </button>
+
+
+            <button class="timeline-item" data-history="thu">
+
+                <span class="timeline-dot"></span>
+
+                <div>
+                    <small>THU · SIMULATION</small>
+                    <strong>Offer scenario</strong>
+                    <p>Delta +12%</p>
+                </div>
+
+            </button>
+
+
+            <button class="timeline-item" data-history="fri">
+
+                <span class="timeline-dot"></span>
+
+                <div>
+                    <small>FRI · DEMAND</small>
+                    <strong>Snack category shift</strong>
+                    <p>Signal +12%</p>
+                </div>
+
+            </button>
+
+
+            <div class="timeline-detail" id="timelineDetail">
+
+                <span>SELECTED OPPORTUNITY</span>
+
+                <h3>Recovery opportunity</h3>
+
+                <p>
+                    A near-sale signal associated with payment friction and
+                    repeat customer behaviour.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FEEDBACK LOOP
+========================================================= -->
+
+<section class="section section-soft">
+
+    <div class="container">
+
+        <div class="section-heading centered reveal">
+
+            <div class="eyebrow">
+                CLOSED-LOOP INTELLIGENCE
+            </div>
+
+            <h2>
+                Every decision can create
+                another signal.
+            </h2>
+
+            <p>
+                The proposed system connects detected opportunities,
+                merchant actions and observed outcomes into a feedback loop.
+            </p>
+
+        </div>
+
+
+        <div class="feedback-loop reveal">
+
+            <div class="feedback-node active">
+
+                <span>01</span>
+
+                <strong>Detection</strong>
+
+                <small>
+                    Identify a potential opportunity
+                </small>
+
+            </div>
+
+            <div class="feedback-arrow">→</div>
+
+            <div class="feedback-node">
+
+                <span>02</span>
+
+                <strong>Recommendation</strong>
+
+                <small>
+                    Explain possible next actions
+                </small>
+
+            </div>
+
+            <div class="feedback-arrow">→</div>
+
+            <div class="feedback-node">
+
+                <span>03</span>
+
+                <strong>Merchant Action</strong>
+
+                <small>
+                    Merchant decides what to do
+                </small>
+
+            </div>
+
+            <div class="feedback-arrow">→</div>
+
+            <div class="feedback-node">
+
+                <span>04</span>
+
+                <strong>Observed Outcome</strong>
+
+                <small>
+                    Record what happened
+                </small>
+
+            </div>
+
+            <div class="feedback-arrow">↻</div>
+
+            <div class="feedback-node">
+
+                <span>05</span>
+
+                <strong>Model Feedback</strong>
+
+                <small>
+                    Feed observed outcomes back
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ARCHITECTURE
+========================================================= -->
+
+<section class="section" id="architecture">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+
+            <div class="eyebrow">
+                SYSTEM ARCHITECTURE
+            </div>
+
+            <h2>
+                From raw merchant signals
+                to opportunity intelligence.
+            </h2>
+
+            <p>
+                SaleSight separates data signals, processing, intelligence
+                generation and merchant experience into distinct layers.
+            </p>
+
+        </div>
+
+
+        <div class="architecture-showcase reveal">
+
+            <div class="architecture-image-wrapper">
+
+                <img
+                    src="assets/architecture.jpeg"
+                    alt="SaleSight system architecture"
+                    class="architecture-image"
+                >
+
+            </div>
+
+
+            <div class="architecture-explorer">
+
+                <div class="architecture-tabs">
+
+                    <button class="architecture-tab active" data-layer="l1">
+                        L1
+                    </button>
+
+                    <button class="architecture-tab" data-layer="l2">
+                        L2
+                    </button>
+
+                    <button class="architecture-tab" data-layer="l3">
+                        L3
+                    </button>
+
+                    <button class="architecture-tab" data-layer="l4">
+                        L4
+                    </button>
+
+                    <button class="architecture-tab" data-layer="l5">
+                        L5
+                    </button>
+
+                </div>
+
+
+                <div class="architecture-detail" id="architectureDetail">
+
+                    <span>L1 · DATA & SIGNALS</span>
+
+                    <h3>
+                        Capture the context around transactions.
+                    </h3>
+
+                    <div class="architecture-items">
+
+                        <span>Transaction Data</span>
+                        <span>Product / Category</span>
+                        <span>Behavioural Signals</span>
+                        <span>Merchant Signals</span>
+                        <span>Temporal Signals</span>
+                        <span>Historical Patterns</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TECHNOLOGY
+========================================================= -->
+
+<section class="section section-soft" id="technology">
+
+    <div class="container">
+
+        <div class="section-heading centered reveal">
+
+            <div class="eyebrow">
+                TECHNICAL FOUNDATION
+            </div>
+
+            <h2>
+                A modular intelligence pipeline.
+            </h2>
+
+            <p>
+                The proposed architecture separates the merchant-facing
+                application layer from analytical and machine-learning
+                services.
+            </p>
+
+        </div>
+
+
+        <div class="tech-stack reveal">
+
+            <div class="tech-card">
+
+                <span class="tech-index">01</span>
+
+                <div class="tech-icon">◫</div>
+
+                <h3>Frontend</h3>
+
+                <strong>React.js</strong>
+
+                <p>
+                    Merchant-facing experience and interactive intelligence
+                    views.
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <span class="tech-index">02</span>
+
+                <div class="tech-icon">◇</div>
+
+                <h3>Backend</h3>
+
+                <strong>Node.js / Express.js</strong>
+
+                <p>
+                    Application APIs, business logic and service orchestration.
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <span class="tech-index">03</span>
+
+                <div class="tech-icon">⌁</div>
+
+                <h3>ML Service</h3>
+
+                <strong>Python / FastAPI</strong>
+
+                <p>
+                    Dedicated service boundary for analytical workloads.
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <span class="tech-index">04</span>
+
+                <div class="tech-icon">◈</div>
+
+                <h3>Machine Learning</h3>
+
+                <strong>Scikit-learn / XGBoost</strong>
+
+                <p>
+                    Detection, scoring and scenario modelling components.
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <span class="tech-index">05</span>
+
+                <div class="tech-icon">▣</div>
+
+                <h3>Database</h3>
+
+                <strong>MongoDB</strong>
+
+                <p>
+                    Application and intelligence data storage.
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <span class="tech-index">06</span>
+
+                <div class="tech-icon">⌁</div>
+
+                <h3>Analytics</h3>
+
+                <strong>Opportunity Intelligence</strong>
+
+                <p>
+                    Near-sale detection, demand analysis and scenario
+                    modelling.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MERCHANT-CENTRIC DESIGN
+========================================================= -->
+
+<section class="section">
+
+    <div class="container principle-layout">
+
+        <div class="principle-copy reveal">
+
+            <div class="eyebrow">
+                DESIGN PRINCIPLES
+            </div>
+
+            <h2>
+                The model is not the product.
+                The decision is.
+            </h2>
+
+            <p>
+                SaleSight is designed as a decision-support layer. The
+                intelligence should help merchants understand a signal,
+                evaluate uncertainty and decide what to do.
+            </p>
+
+        </div>
+
+
+        <div class="principle-grid reveal">
+
+            <div class="principle-card">
+
+                <span>01</span>
+
+                <h3>
+                    Explainability
+                </h3>
+
+                <p>
+                    Show the signals contributing to an opportunity rather
+                    than presenting an unexplained score.
+                </p>
+
+            </div>
+
+
+            <div class="principle-card">
+
+                <span>02</span>
+
+                <h3>
+                    Uncertainty
+                </h3>
+
+                <p>
+                    Pair estimates with confidence and context instead of
+                    presenting predictions as facts.
+                </p>
+
+            </div>
+
+
+            <div class="principle-card">
+
+                <span>03</span>
+
+                <h3>
+                    Human control
+                </h3>
+
+                <p>
+                    Recommendations support merchant judgement; they do not
+                    autonomously execute business decisions.
+                </p>
+
+            </div>
+
+
+            <div class="principle-card">
+
+                <span>04</span>
+
+                <h3>
+                    Actionability
+                </h3>
+
+                <p>
+                    Intelligence should connect to a possible next step,
+                    not stop at another analytical chart.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     BUSINESS MODEL
+========================================================= -->
+
+<section class="section section-dark" id="business">
+
+    <div class="container">
+
+        <div class="dark-heading reveal">
+
+            <div class="eyebrow">
+                POTENTIAL BUSINESS MODEL
+            </div>
+
+            <h2>
+                An intelligence layer that can scale
+                across merchant ecosystems.
+            </h2>
+
+            <p>
+                The following represent potential monetisation routes for
+                the proposed concept rather than existing commercial
+                operations.
+            </p>
+
+        </div>
+
+
+        <div class="business-grid reveal">
+
+            <div class="business-card">
+
+                <span>01</span>
+
+                <h3>
+                    Pro Intelligence
+                </h3>
+
+                <p>
+                    Advanced opportunity intelligence for growing and
+                    high-frequency merchants.
+                </p>
+
+                <strong>
+                    Subscription
+                </strong>
+
+            </div>
+
+
+            <div class="business-card">
+
+                <span>02</span>
+
+                <h3>
+                    Outcome / Usage
+                </h3>
+
+                <p>
+                    Intelligence around promotions, campaigns and
+                    growth-oriented merchant actions.
+                </p>
+
+                <strong>
+                    Usage-based
+                </strong>
+
+            </div>
+
+
+            <div class="business-card">
+
+                <span>03</span>
+
+                <h3>
+                    Intelligence API
+                </h3>
+
+                <p>
+                    Opportunity scores, demand signals and scenario
+                    intelligence exposed to merchant platforms.
+                </p>
+
+                <strong>
+                    Platform / Enterprise
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     WHAT SALESIGHT IS / ISN'T
+========================================================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="section-heading centered reveal">
+
+            <div class="eyebrow">
+                RESPONSIBLE PRODUCT FRAMING
+            </div>
+
+            <h2>
+                Useful intelligence without overclaiming.
+            </h2>
+
+        </div>
+
+
+        <div class="is-not-grid reveal">
+
+            <div class="is-card">
+
+                <div class="is-heading">
+                    <span class="check">✓</span>
+                    <h3>SaleSight is</h3>
+                </div>
+
+                <ul>
+
+                    <li>Opportunity intelligence</li>
+                    <li>Decision support</li>
+                    <li>Pattern-based estimates</li>
+                    <li>Explainable signals</li>
+                    <li>A merchant intelligence layer</li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="is-card">
+
+                <div class="is-heading">
+                    <span class="cross">×</span>
+                    <h3>SaleSight is not</h3>
+                </div>
+
+                <ul>
+
+                    <li>A payment gateway</li>
+                    <li>An autonomous merchant</li>
+                    <li>A guarantee of revenue</li>
+                    <li>A replacement for business judgement</li>
+                    <li>A claim of live production deployment</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FINAL
+========================================================= -->
+
+<section class="final-section">
+
+    <div class="final-glow"></div>
+
+    <div class="container final-content">
+
+        <div class="eyebrow">
+            SALESIGHT · MERCHANT OPPORTUNITY INTELLIGENCE
+        </div>
+
+        <h2>
+            Don't just tell merchants
+            what happened.
+        </h2>
+
+        <p>
+            Help them understand what they missed,
+            what is changing, and what could happen next.
+        </p>
+
+        <div class="final-flow">
+
+            <span>SEE</span>
+            <i>→</i>
+            <span>PREDICT</span>
+            <i>→</i>
+            <span>SIMULATE</span>
+            <i>→</i>
+            <span>ACT</span>
+
+        </div>
+
+        <div class="final-note">
+            Paytm Build for India AI Hackathon · Track 1 — Merchant Growth AI
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+    <div class="container footer-grid">
+
+        <div>
+
+            <div class="footer-brand">
+
+                <img
+                    src="assets/salesight-logo.png"
+                    alt="SaleSight"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                >
+
+                <span class="footer-brand-fallback">
+                    SaleSight <span>✦</span>
+                </span>
+
+            </div>
+
+            <p>
+                Merchant Opportunity Intelligence
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="#opportunity">Opportunity</a>
+            <a href="#intelligence">Intelligence</a>
+            <a href="#simulator">Simulator</a>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#architecture">Architecture</a>
+
+        </div>
+
+
+        <div class="footer-meta">
+
+            <span>
+                Paytm Build for India AI Hackathon
+            </span>
+
+            <span>
+                TRACK 1 · MERCHANT GROWTH AI
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="container footer-bottom">
+
+        <span>
+            © 2026 SaleSight Concept
+        </span>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     MODALS
+========================================================= -->
+
+<div class="modal-overlay" id="recoverModal">
+
+    <div class="modal">
+
+        <button class="modal-close">×</button>
+
+        <span class="eyebrow coral-text">
+            NEAR-SALE DETECTION
+        </span>
+
+        <h2>
+            Recover potential opportunities.
+        </h2>
+
+        <p>
+            The proposed engine combines transaction friction, retries,
+            engagement and historical behaviour to identify situations
+            associated with incomplete conversion.
+        </p>
+
+        <div class="modal-points">
+
+            <span>Payment status</span>
+            <span>Retry behaviour</span>
+            <span>Product engagement</span>
+            <span>Repeat patterns</span>
+            <span>Historical conversion</span>
+
+        </div>
+
+        <div class="modal-disclaimer">
+            Illustrative concept. A detected signal does not establish that
+            a customer would have purchased.
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="modal-overlay" id="demandModal">
+
+    <div class="modal">
+
+        <button class="modal-close">×</button>
+
+        <span class="eyebrow purple-text">
+            DEMAND EARLY-ECHO
+        </span>
+
+        <h2>
+            Detect change before it becomes obvious.
+        </h2>
+
+        <p>
+            Recent activity can be compared with historical patterns to
+            identify unusual category or product movement.
+        </p>
+
+        <div class="modal-points">
+
+            <span>Historical baseline</span>
+            <span>Recent activity</span>
+            <span>Category momentum</span>
+            <span>Temporal patterns</span>
+            <span>Emerging signals</span>
+
+        </div>
+
+        <div class="modal-disclaimer">
+            Illustrative signal only. It is not a live market forecast.
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
