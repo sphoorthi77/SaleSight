@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SaleSight — See the sale before it happens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F6F2EA; --ink:#1A1A1A; --coral:#E8583A; --purple:#6C4CE0;
+  --teal:#1B8C7E; --yellow:#F0B429; --peach:#F7E4D6; --lavender:#E9E3F7; --mint:#DCEFE9;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:env(safe-area-inset-top,0px);}
+html,body{background:var(--cream); color:var(--ink); margin:0; overflow-x:hidden;}
+body{font-family:'Inter',sans-serif; font-size:16px; line-height:1.5;}
+h1,h2,h3,.disp{font-family:'Fraunces',serif; font-weight:500; letter-spacing:-0.01em; margin:0;}
+::selection{background:var(--yellow); color:var(--ink);}
+a{color:inherit}
+.wrap{max-width:1100px; margin:0 auto; padding:0 32px;}
+section{position:relative; padding:140px 0;}
+
+/* loader */
+#loader{position:fixed; inset:0; background:var(--ink); color:var(--cream); z-index:999;
+  display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-size:clamp(28px,6vw,56px);
+  transition:opacity .6s ease, visibility .6s;}
+#loader span{opacity:0; position:absolute; transition:opacity .35s ease;}
+#loader.done{opacity:0; visibility:hidden; pointer-events:none;}
+
+/* nav */
+nav{position:fixed; top:24px; left:50%; transform:translateX(-50%); z-index:100;
+  display:flex; gap:28px; align-items:center; background:rgba(246,242,234,.85); backdrop-filter:blur(8px);
+  border:1px solid rgba(26,26,26,.1); border-radius:40px; padding:10px 22px; font-size:13px; font-weight:500;}
+nav .brand{font-family:'Fraunces',serif; font-size:15px; margin-right:6px;}
+nav a{text-decoration:none; opacity:.55; transition:opacity .3s, color .3s; padding:4px 2px; position:relative;}
+nav a.active{opacity:1; color:var(--coral);}
+@media(max-width:640px){ nav{gap:16px; padding:9px 16px; font-size:11px;} nav .brand{display:none} }
+
+/* hero */
+#hero{min-height:100svh; display:flex; align-items:center; justify-content:center; padding:0; overflow:hidden;}
+#field{position:absolute; inset:0; z-index:1;}
+.signal{position:absolute; font-size:12px; font-weight:600; color:var(--purple); opacity:0;
+  padding:3px 8px; white-space:nowrap; animation:drift linear infinite; pointer-events:none;}
+.signal.c1{color:var(--coral)} .signal.c2{color:var(--teal)} .signal.c3{color:var(--yellow); text-shadow:0 0 0 var(--ink);} .signal.c4{color:var(--purple)}
+@keyframes drift{ 0%{opacity:0; transform:translateY(30px)} 12%{opacity:.85} 88%{opacity:.85} 100%{opacity:0; transform:translateY(-30px)} }
+.hero-text{position:relative; z-index:2; text-align:center; max-width:900px; padding:0 24px;}
+.hero-line{font-size:clamp(22px,4.4vw,44px); line-height:1.15; transition:opacity .8s ease, transform .8s ease;}
+.hero-line.out{opacity:0; transform:translateY(-16px); position:absolute; inset:0;}
+.hero-line.big{color:var(--coral);}
+.loop-strip{position:relative; z-index:2; margin-top:56px; display:flex; gap:18px; font-size:13px; font-weight:600; letter-spacing:.04em;}
+.loop-strip span{padding:6px 14px; border:1px solid rgba(26,26,26,.15); border-radius:20px; opacity:.4; transition:opacity .4s, background .4s, color .4s;}
+.loop-strip span.on{opacity:1; background:var(--ink); color:var(--cream);}
+
+/* problem */
+#problem{text-align:center; background:var(--ink); color:var(--cream);}
+#problem .disp{font-size:clamp(24px,4.6vw,46px); max-width:820px; margin:0 auto 18px;}
+#problem .disp.hi{color:var(--yellow);}
+.converge{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:64px;}
+.chip{font-size:12px; padding:7px 14px; border-radius:20px; border:1px solid rgba(246,242,234,.25); opacity:.55;}
+.chip.hit{background:var(--coral); border-color:var(--coral); opacity:1; color:var(--ink);}
+
+/* recover - asymmetric */
+#recover{display:grid; grid-template-columns:1.1fr .9fr; gap:60px; align-items:start; max-width:1100px; margin:0 auto; padding:140px 32px;}
+#recover .lead{position:sticky; top:120px;}
+#recover .eyebrow{font-size:13px; color:var(--coral); font-weight:600; margin-bottom:6px;}
+#recover h2{font-size:clamp(34px,5vw,58px);}
+#recover p.sub{font-size:19px; margin-top:14px; max-width:32ch; opacity:.75;}
+.stream{display:flex; flex-direction:column; gap:0;}
+.evt{border-top:1px solid rgba(26,26,26,.12); padding:16px 4px; font-size:14px; display:flex; gap:14px; cursor:default; position:relative;}
+.evt time{opacity:.5; font-variant-numeric:tabular-nums; width:78px; flex:none;}
+.evt strong{font-weight:600;}
+.evt .tip{display:none; font-size:12.5px; color:var(--purple); margin-top:6px;}
+.evt:hover .tip{display:block;}
+.evt:hover strong{color:var(--coral);}
+.score-wrap{margin-top:36px; display:flex; align-items:center; gap:20px;}
+.score-ring{width:96px; height:96px; flex:none;}
+.score-num{font-family:'Fraunces',serif; font-size:34px;}
+
+/* anticipate - full width chart */
+#anticipate{background:var(--mint);}
+#anticipate .inner{max-width:1100px; margin:0 auto; padding:0 32px; display:grid; grid-template-columns:.85fr 1.15fr; gap:56px; align-items:start;}
+#anticipate .disp{font-size:clamp(26px,3.6vw,40px); max-width:14ch;}
+#anticipate .stat{color:var(--teal); font-family:'Fraunces',serif; font-size:clamp(36px,5vw,60px); margin-top:18px;}
+#chartbox{margin-top:0; background:var(--cream); border-radius:4px; padding:28px; overflow:hidden;}
+#slider{width:100%; accent-color:var(--teal); margin-top:26px;}
+.months{display:flex; justify-content:space-between; font-size:12px; opacity:.6; margin-top:6px;}
+
+/* simulate */
+#simulate{background:var(--ink); color:var(--cream);}
+#simulate .inner{max-width:1100px; margin:0 auto; padding:0 32px; display:grid; grid-template-columns:.85fr 1.15fr; gap:56px; align-items:center;}
+#simulate .disp{font-size:clamp(26px,3.6vw,40px); max-width:14ch;}
+.sandbox{background:rgba(246,242,234,.05); border:1px solid rgba(246,242,234,.15); border-radius:4px; padding:32px;}
+.control label{font-size:12px; letter-spacing:.05em; opacity:.6; display:block; margin-bottom:8px;}
+.control input[type=range]{width:100%; accent-color:var(--coral);}
+.readout{display:flex; justify-content:space-between; margin-top:36px; font-size:14px;}
+.readout div{opacity:.6;}
+.readout strong{display:block; font-family:'Fraunces',serif; font-size:26px; color:var(--yellow); opacity:1;}
+#delta{color:var(--coral) !important;}
+
+/* engine network */
+#engine{text-align:center;}
+#engine h2{font-size:clamp(30px,5vw,54px); margin-bottom:60px;}
+.net{max-width:720px; margin:0 auto;}
+.net text{font-family:'Inter',sans-serif; font-size:11px; font-weight:600;}
+.net .core{fill:var(--ink)}
+.net .core-label{fill:var(--cream); font-family:'Fraunces',serif; font-size:14px;}
+.net line{stroke:rgba(26,26,26,.18); stroke-width:1;}
+.net circle.node{fill:var(--peach); stroke:none;}
+.net .out circle.node{fill:var(--lavender);}
+
+/* architecture */
+#arch{background:var(--peach);}
+#arch .inner{max-width:1100px; margin:0 auto; padding:0 32px; display:grid; grid-template-columns:1.3fr .7fr; gap:56px; align-items:start;}
+#arch h2{font-size:clamp(28px,4.5vw,44px); margin-bottom:16px;}
+.layer{border-top:1px solid rgba(26,26,26,.15); padding:20px 0; cursor:pointer;}
+.layer:last-child{border-bottom:1px solid rgba(26,26,26,.15);}
+.layer .row{display:flex; justify-content:space-between; align-items:baseline;}
+.layer .tag{font-size:12px; color:var(--purple); font-weight:600;}
+.layer h3{font-size:21px; margin-top:4px;}
+.layer .arch-desc{font-size:14.5px; opacity:.78; margin-top:8px; max-width:56ch;}
+.layer .items{max-height:0; overflow:hidden; transition:max-height .35s ease; font-size:12.5px; opacity:.55; margin-top:0;}
+.layer.open .items{max-height:60px; margin-top:8px;}
+.layer .toggle-hint{font-size:11px; opacity:.4; margin-top:6px;}
+.pipeline{position:sticky; top:120px; background:var(--cream); border-radius:4px; padding:26px 20px;}
+.pipeline .pl{display:flex; align-items:center; gap:12px; padding:10px 0; opacity:.4; transition:opacity .3s;}
+.pipeline .pl.on{opacity:1;}
+.pipeline .dot{width:10px; height:10px; border-radius:50%; background:var(--purple); flex:none;}
+.pipeline .pl:nth-child(2) .dot{background:var(--teal)}
+.pipeline .pl:nth-child(3) .dot{background:var(--coral)}
+.pipeline .pl:nth-child(4) .dot{background:var(--yellow)}
+.pipeline .pl:nth-child(5) .dot{background:var(--purple)}
+.pipeline .connector{width:1px; height:20px; background:rgba(26,26,26,.15); margin-left:4.5px;}
+.pipeline span{font-size:13px; font-weight:600;}
+
+/* usp */
+#usp{display:flex; align-items:center; justify-content:center; gap:60px; flex-wrap:wrap; text-align:center;}
+#usp .word{font-family:'Fraunces',serif; font-size:clamp(30px,6vw,64px);}
+#usp .from{opacity:.35;}
+#usp .to{color:var(--coral);}
+#usp .arrow{font-size:28px; opacity:.4;}
+.usp-list{display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:20px; max-width:420px;}
+.usp-list span{font-size:12px; padding:5px 12px; border-radius:20px; background:var(--lavender);}
+
+/* business model */
+#biz{background:var(--ink); color:var(--cream);}
+.models{display:flex; gap:0; border-top:1px solid rgba(246,242,234,.2); border-bottom:1px solid rgba(246,242,234,.2);}
+.model{flex:1; padding:44px 24px; border-right:1px solid rgba(246,242,234,.2); transition:flex .4s ease, background .4s;}
+.model:last-child{border-right:none;}
+.model:hover{flex:1.6; background:rgba(232,88,58,.12);}
+.model h3{font-family:'Fraunces',serif; font-size:26px; color:var(--yellow);}
+.model p{font-size:14px; opacity:.75; margin-top:10px; max-width:26ch;}
+@media(max-width:760px){.models{flex-direction:column;} .model:hover{flex:1;}}
+
+/* impact */
+#impact{text-align:center;}
+.transform{font-family:'Fraunces',serif; font-size:clamp(20px,3.6vw,32px); margin:28px 0; opacity:.35; transition:opacity .5s;}
+.transform.on{opacity:1;}
+.transform b{color:var(--teal); font-weight:500;}
+
+/* final cta */
+#cta{min-height:100svh; display:flex; align-items:center; justify-content:center; text-align:center; overflow:hidden;}
+#cta .disp{font-size:clamp(26px,5.2vw,52px); max-width:820px; position:relative; z-index:2;}
+#cta .brand{margin-top:30px; font-family:'Fraunces',serif; font-size:15px; letter-spacing:.08em;}
+#cta .loop{margin-top:14px; font-size:13px; font-weight:600; opacity:.6;}
+
+/* about */
+#about{background:var(--lavender); padding:100px 32px;}
+#about .inner{max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;}
+#about h2{font-size:clamp(26px,4vw,40px);}
+#about p{max-width:52ch; margin-top:16px; font-size:15px; opacity:.75;}
+
+.para{font-size:16.5px; line-height:1.7; max-width:62ch; opacity:.82;}
+.para + .para{margin-top:14px;}
+.section-head{max-width:720px; margin:0 auto 20px;}
+.section-head.left{margin:0 0 20px;}
+.legend{display:flex; flex-wrap:wrap; gap:8px 24px; margin-top:22px; font-size:13px;}
+.legend b{font-weight:600;}
+.legend .in b{color:var(--purple)} .legend .out b{color:var(--coral)}
+.net{max-width:640px; margin:40px auto 0;}
+.net .node-label{font-size:10.5px; font-weight:600;}
+.net .node-label tspan{display:block;}
+.arch-desc{font-size:14.5px; opacity:.75; margin-top:8px; max-width:60ch;}
+.reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+.reveal.show{opacity:1; transform:none;}
+@media (prefers-reduced-motion:reduce){ *{animation:none !important; transition:none !important;} }
+footer{padding:40px 0; text-align:center; font-size:12px; opacity:.5;}
+</style>
+</head>
+<body>
+
+<div id="loader"><span id="ldtext">SALE</span></div>
+
+<nav id="nav">
+  <span class="brand">SALESIGHT</span>
+  <a href="#hero" class="navlink active" data-t="hero">SEE</a>
+  <a href="#anticipate" class="navlink" data-t="anticipate">PREDICT</a>
+  <a href="#simulate" class="navlink" data-t="simulate">SIMULATE</a>
+  <a href="#cta" class="navlink" data-t="cta">ACT</a>
+  <a href="#about" class="navlink" data-t="about">ABOUT</a>
+</nav>
+
+<section id="hero">
+  <div id="field"></div>
+  <div class="hero-text">
+    <div class="hero-line" id="l1">THE UNIT OF INTELLIGENCE<br>IS NOT THE TRANSACTION.</div>
+    <div class="hero-line big out" id="l2">IT IS THE OPPORTUNITY.</div>
+    <div class="loop-strip" id="loopstrip">
+      <span data-s>SEE</span><span data-s>PREDICT</span><span data-s>SIMULATE</span><span data-s>ACT</span>
+    </div>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="wrap">
+    <div class="disp reveal">MOST MERCHANT SYSTEMS EXPLAIN WHAT HAPPENED.</div>
+    <div class="disp hi reveal">SALESIGHT ASKS WHAT ALMOST HAPPENED.</div>
+    <p class="para reveal" style="margin:26px auto 0; color:rgba(246,242,234,.75)">A typical dashboard tells a merchant what sold, what failed, and what was returned — after the fact. It treats every transaction as a closed, isolated record. SaleSight reads the same raw events, but instead of stopping at the transaction, it looks for the near-misses around it: a payment that failed and was retried, a product viewed but never bought, demand that is quietly shifting before anyone notices. Six kinds of everyday signal below converge into one thing a merchant can actually act on.</p>
+    <div class="converge reveal" id="converge">
+      <span class="chip">COMPLETED SALE</span><span class="chip">FAILED PAYMENT</span><span class="chip">RETRY</span>
+      <span class="chip">SEARCH</span><span class="chip">ABANDONMENT</span><span class="chip">DEMAND SHIFT</span>
+      <span class="chip hit">OPPORTUNITY</span>
+    </div>
+  </div>
+</section>
+
+<section id="recover">
+  <div class="lead reveal">
+    <div class="eyebrow">RECOVER</div>
+    <h2>What almost<br>converted?</h2>
+    <p class="para" style="margin-top:16px">Every merchant has a hidden layer of near-sales: payments that failed and were quietly retried, products viewed with real intent but never bought, carts that closed one screen before checkout. Individually, each of these looks like nothing — a failure, a bounce, a blip in the logs. SaleSight's <b>Recover</b> module reads them as a sequence instead, and asks a simple question of the whole cluster: does this look like a customer who almost bought, and might still?</p>
+    <p class="para" style="margin-top:10px">The timeline on the right is a real example of that sequence, rebuilt event by event. Hover each line to see what SaleSight infers from it on its own; then watch how the five separate events combine into a single <b>Opportunity Score</b> — a 0–100 estimate of how likely this cluster is to convert if a merchant acts on it now.</p>
+    <div class="score-wrap">
+      <svg class="score-ring" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(26,26,26,.12)" stroke-width="8"/>
+        <circle id="ring" cx="50" cy="50" r="42" fill="none" stroke="#E8583A" stroke-width="8"
+          stroke-dasharray="264" stroke-dashoffset="264" stroke-linecap="round" transform="rotate(-90 50 50)"/>
+      </svg>
+      <div><div class="score-num" id="scorenum">0</div><div style="font-size:12px;opacity:.6;max-width:22ch">Opportunity Score — illustrative prototype value, not a live merchant result</div></div>
+    </div>
+  </div>
+  <div class="reveal">
+    <div style="font-size:12px;font-weight:600;letter-spacing:.05em;opacity:.5;margin-bottom:6px">RECONSTRUCTED TRANSACTION TIMELINE — HOVER EACH EVENT</div>
+    <div class="stream">
+    <div class="evt"><time>09:41:22</time><div><strong>₹850 — PAYMENT FAILED</strong><div class="tip">Repeated attempt detected — the customer tried again within seconds, which usually rules out a change of mind.</div></div></div>
+    <div class="evt"><time>09:41:31</time><div><strong>RETRY</strong><div class="tip">Same card, same amount, same intent — a genuine retry, not a new visit.</div></div></div>
+    <div class="evt"><time>09:42:08</time><div><strong>PRODUCT VIEW</strong><div class="tip">High-intent behaviour: they went back to the product page rather than leaving the site.</div></div></div>
+    <div class="evt"><time>09:42:14</time><div><strong>CART EXIT</strong><div class="tip">A likely conversion interruption — the cart was abandoned, not emptied.</div></div></div>
+    <div class="evt"><time>09:43:02</time><div><strong>CUSTOMER RETURNS</strong><div class="tip">The cluster closes here: failure → retry → renewed interest → interruption → return. SaleSight flags this as one opportunity, not five unrelated events.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="anticipate">
+  <div class="inner reveal">
+    <div>
+      <div class="eyebrow" style="color:var(--teal);font-weight:600;font-size:13px">ANTICIPATE</div>
+      <div class="disp">What is beginning to change?</div>
+      <p class="para" style="margin-top:16px">A single spike in orders is easy to see — and easy to react to too late. What's harder to see is <b>drift</b>: demand for a category quietly rising week over week, long before it shows up as an obvious trend on a monthly report.</p>
+      <p class="para" style="margin-top:10px">SaleSight's <b>Anticipate</b> module compares each week's behaviour against the merchant's own historical baseline, and surfaces the gap as it's forming, not after it's already happened. Drag the slider to move through six months of the same product category.</p>
+      <div class="stat" id="driftstat">+0%</div>
+      <div style="font-size:12px;opacity:.6">Demand Signal vs. historical baseline — illustrative prototype value</div>
+    </div>
+    <div id="chartbox">
+      <div class="legend" style="margin-top:0;margin-bottom:18px"><span><span style="display:inline-block;width:14px;height:2px;background:rgba(26,26,26,.4);vertical-align:middle;margin-right:6px"></span>What was normal</span><span><span style="display:inline-block;width:14px;height:3px;background:#1B8C7E;vertical-align:middle;margin-right:6px"></span>What is changing</span></div>
+      <svg viewBox="0 0 600 175" width="100%" height="175" preserveAspectRatio="none">
+        <text x="0" y="14" font-size="10" fill="rgba(26,26,26,.45)" font-family="Inter,sans-serif">DEMAND INDEX (RELATIVE TO JAN)</text>
+        <polyline id="baseline" points="0,135 100,133 200,130 300,127 400,123 500,119 600,115" fill="none" stroke="rgba(26,26,26,.25)" stroke-width="2"/>
+        <polyline id="drift" points="0,135 100,133 200,125 300,110 400,87 500,65 600,45" fill="none" stroke="#1B8C7E" stroke-width="3"/>
+        <line id="gapline" x1="600" y1="45" x2="600" y2="115" stroke="#E8583A" stroke-width="1.5" stroke-dasharray="3,3"/>
+        <text id="gaplabel" x="560" y="75" font-size="11" font-weight="600" fill="#E8583A" text-anchor="end" font-family="Inter,sans-serif">gap = drift</text>
+      </svg>
+      <input type="range" id="slider" min="0" max="5" value="0">
+      <div class="months"><span>JAN</span><span>FEB</span><span>MAR</span><span>APR</span><span>MAY</span><span>JUN</span></div>
+      <p style="font-size:12.5px;opacity:.65;margin-top:16px">Same category, same six months. The grey line is a normal year; the teal line is this year. The orange gap between them — read off on the slider — is the drift SaleSight is surfacing.</p>
+    </div>
+  </div>
+</section>
+
+<section id="simulate">
+  <div class="inner">
+    <div class="reveal">
+      <div class="eyebrow" style="color:var(--coral);font-weight:600;font-size:13px">SIMULATE</div>
+      <div class="disp">Don't just predict the future. Test it.</div>
+      <p class="para" style="margin-top:16px;opacity:.85">Knowing that demand is shifting still leaves a merchant with a decision: raise the price, drop it, run an offer, wait? SaleSight's <b>Simulate</b> module turns that into something a merchant can rehearse — move a variable and see the effect ripple through the same opportunity in real time.</p>
+      <p style="font-size:12px;opacity:.5;margin-top:20px">Illustrative prototype values — not actual merchant results.</p>
+    </div>
+    <div class="sandbox reveal">
+      <div class="control">
+        <label>PRICE — DRAG TO TEST A NEW PRICE POINT</label>
+        <input type="range" id="price" min="400" max="600" value="500">
+      </div>
+      <div class="readout">
+        <div>BASELINE<strong>₹500</strong></div>
+        <div>SIMULATED<strong id="simprice">₹500</strong></div>
+        <div>SCENARIO Δ<strong id="delta">₹0</strong></div>
+      </div>
+      <p id="simread" style="font-size:13px;opacity:.7;margin-top:24px;min-height:36px">Move the slider to see how a different price changes the outcome of this same opportunity.</p>
+    </div>
+  </div>
+</section>
+
+<section id="engine">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="reveal">Opportunity Intelligence Engine</h2>
+      <p class="para reveal" style="margin:16px auto 0">Recover, Anticipate and Simulate all draw from one shared engine. Six kinds of raw input feed into it continuously; the engine correlates them and produces five outputs a merchant can actually use. Nothing here is a separate tool — it's one system, read from six directions and reported back in five.</p>
+    </div>
+    <svg class="net reveal" viewBox="0 0 600 460">
+      <g id="lines"></g>
+      <circle class="core" cx="300" cy="230" r="52"/>
+      <text class="core-label" x="300" y="236" text-anchor="middle">SALESIGHT</text>
+      <g id="nodes"></g>
+    </svg>
+    <div class="legend" style="justify-content:center">
+      <span class="in"><b>Inputs</b> — transaction, product, behaviour, merchant, temporal, historical data</span>
+      <span class="out"><b>Outputs</b> — opportunity score, demand signal, scenario delta, confidence, recommended action</span>
+    </div>
+  </div>
+</section>
+
+<section id="arch">
+  <div class="inner">
+    <div>
+      <h2 class="reveal">Architecture</h2>
+      <p class="para reveal" style="margin-bottom:30px">Five layers turn raw merchant data into a single recommendation. Data flows upward, from the rawest signals at L1 to the decision a merchant actually sees at L5. Tap any layer for what feeds it.</p>
+      <div class="layer" data-items="Transaction data, product catalogue and views, customer behaviour, merchant profile, time-of-day and seasonal patterns, historical sales"><div class="row"><span class="tag">L1</span></div><h3>Data &amp; Signals</h3><p class="arch-desc">Everything SaleSight starts from: raw transactions, product activity, customer behaviour, merchant context, timing, and history — captured as it happens.</p><div class="items"></div><div class="toggle-hint">tap for the full input list</div></div>
+      <div class="layer" data-items="Cleaning duplicate or malformed records, feature engineering, signal aggregation across sources, a shared feature store"><div class="row"><span class="tag">L2</span></div><h3>Data Processing</h3><p class="arch-desc">Raw signals are cleaned, combined, and turned into structured features — reused by every model downstream instead of recomputed each time.</p><div class="items"></div><div class="toggle-hint">tap for the processing steps</div></div>
+      <div class="layer" data-items="Recover — near-miss detection, Anticipate — demand drift detection, Simulate — scenario modelling"><div class="row"><span class="tag">L3</span></div><h3>AI / ML Engine</h3><p class="arch-desc">The three capabilities on this page run here: Recover finds near-misses, Anticipate finds drift, Simulate models what-if scenarios.</p><div class="items"></div><div class="toggle-hint">tap for the three models</div></div>
+      <div class="layer" data-items="Opportunity Score, Demand Signal, Scenario Delta, Confidence, Recommended Action"><div class="row"><span class="tag">L4</span></div><h3>SaleSight Intelligence</h3><p class="arch-desc">Model outputs become the five plain-language results a merchant sees: a score, a signal, a delta, a confidence level, and a recommended next step.</p><div class="items"></div><div class="toggle-hint">tap for all five outputs</div></div>
+      <div class="layer" data-items="Dashboard, insights feed, recommendations, decision sandbox"><div class="row"><span class="tag">L5</span></div><h3>Merchant Experience</h3><p class="arch-desc">Where a merchant actually sees this: a dashboard of live opportunities, a running insights feed, and the decision sandbox from Simulate.</p><div class="items"></div><div class="toggle-hint">tap for what merchants use</div></div>
+    </div>
+    <div class="pipeline reveal">
+      <div style="font-size:11px;font-weight:600;opacity:.5;margin-bottom:4px">DATA FLOWS UPWARD</div>
+      <div class="pl" data-l="1"><div class="dot"></div><span>L1 · Data &amp; Signals</span></div>
+      <div class="connector"></div>
+      <div class="pl" data-l="2"><div class="dot"></div><span>L2 · Data Processing</span></div>
+      <div class="connector"></div>
+      <div class="pl" data-l="3"><div class="dot"></div><span>L3 · AI / ML Engine</span></div>
+      <div class="connector"></div>
+      <div class="pl" data-l="4"><div class="dot"></div><span>L4 · Intelligence</span></div>
+      <div class="connector"></div>
+      <div class="pl" data-l="5"><div class="dot"></div><span>L5 · Merchant Experience</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="usp">
+  <div class="wrap" style="text-align:center">
+    <p class="para reveal" style="margin:0 auto 50px">This is the difference in one line. A conventional analytics tool records a transaction and stops — an amount, a card, a timestamp. SaleSight treats that same record as the start of a question: what was this customer's intent, what context surrounded it, what pattern does it belong to, was the timing right, and what action follows from it? The transaction doesn't disappear — it just stops being the end of the story.</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:60px;flex-wrap:wrap">
+      <div>
+        <div style="font-size:12px;opacity:.5;margin-bottom:8px">WHAT A DASHBOARD SEES</div>
+        <div class="word from">TRANSACTION</div>
+        <div class="usp-list"><span>₹850 · card · 09:41</span></div>
+      </div>
+      <div class="arrow">→</div>
+      <div>
+        <div style="font-size:12px;color:var(--coral);margin-bottom:8px">WHAT SALESIGHT SEES</div>
+        <div class="word to">OPPORTUNITY</div>
+        <div class="usp-list"><span>intent</span><span>context</span><span>pattern</span><span>timing</span><span>action</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="biz">
+  <div class="wrap">
+    <h2 class="reveal" style="font-size:clamp(28px,4.5vw,46px)">Business model</h2>
+    <p class="para reveal" style="margin-top:16px;opacity:.85">Three ways SaleSight's intelligence could reach a merchant, from simplest to most embedded. None of these are live pricing — they're proposed models to weigh against each other. Hover each one to read what it means and who it fits.</p>
+  </div>
+  <div class="models" style="margin-top:40px">
+    <div class="model"><h3>PRO</h3><p>A flat subscription. The merchant pays for access to Recover, Anticipate and Simulate directly through the SaleSight dashboard — the simplest model to start with.</p></div>
+    <div class="model"><h3>OUTCOME</h3><p>Usage- or performance-based pricing. The merchant pays in proportion to recovered sales or demand captured — intelligence priced against the value it actually creates.</p></div>
+    <div class="model"><h3>API</h3><p>SaleSight as infrastructure. Other platforms and merchant tools call SaleSight's models directly, embedding opportunity detection into products that aren't SaleSight itself.</p></div>
+  </div>
+  <p class="wrap" style="font-size:12px;opacity:.5;margin-top:20px">Proposed models — not existing pricing.</p>
+</section>
+
+<section id="impact">
+  <div class="wrap">
+    <div class="disp reveal" style="font-size:clamp(26px,4.6vw,48px)">From reactive to opportunity-aware</div>
+    <p class="para reveal" style="margin:18px auto 0">Three shifts summarise what changes when a merchant moves from a system that records to one that reads for opportunity — each one a move from looking backward to looking just ahead.</p>
+    <div class="transform reveal">REPORTING → <b>ANTICIPATION</b></div>
+    <div class="transform reveal">HINDSIGHT → <b>FORESIGHT</b></div>
+    <div class="transform reveal">TRANSACTIONS → <b>OPPORTUNITIES</b></div>
+  </div>
+</section>
+
+<section id="cta">
+  <div id="ctafield" style="position:absolute;inset:0;"></div>
+  <div class="disp reveal">What if your next sale is already hiding in your data?</div>
+</section>
+
+<section id="about">
+  <div class="inner">
+    <div>
+      <h2>SaleSight</h2>
+      <p style="font-family:'Fraunces',serif;font-size:19px;margin-top:8px;font-style:italic">The sales you never got to see.</p>
+      <p class="para" style="margin-top:20px">SaleSight treats the transaction as a starting point, not the answer. It reads the signals around a transaction — failures, retries, views, exits, returns, and the timing of all of it — to surface an opportunity a merchant almost missed, then lets them test a response to it before committing to anything.</p>
+    </div>
+    <div>
+      <p class="para">The system is built around three capabilities. <b>Recover</b> looks at individual customer journeys to find near-misses that are still recoverable. <b>Anticipate</b> zooms out to weeks and months, watching for demand that's beginning to shift before it becomes obvious. <b>Simulate</b> lets a merchant test a decision — a price, an offer, a discount — against that same data before it goes live.</p>
+      <p class="para" style="margin-top:14px">Together they form one loop: see the signal, predict what it means, simulate a response, act, and feed the outcome back into the next cycle.</p>
+    </div>
+  </div>
+</section>
+
+<footer>SaleSight — prototype experience. All figures illustrative.</footer>
+
+<script>
+// loader
+const seq=['SALE','SIGHT','SEE','PREDICT','SIMULATE','ACT'];
+const ld=document.getElementById('ldtext'), loader=document.getElementById('loader');
+let i=0;
+function step(){ ld.style.opacity=0; setTimeout(()=>{ i++; if(i<seq.length){ ld.textContent=seq[i]; ld.style.opacity=1; setTimeout(step,260);} else { loader.classList.add('done'); } },260);}
+ld.style.opacity=1; setTimeout(step,260);
+
+// signal field
+const words=['₹420','₹850','₹1,250','₹390','₹2,400','FAILED','RETRY','ABANDONED','SEARCH','RETURNING CUSTOMER','HIGH DEMAND'];
+const field=document.getElementById('field');
+for(let n=0;n<26;n++){
+  const s=document.createElement('div'); s.className='signal c'+(1+n%4);
+  s.textContent=words[n%words.length];
+  s.style.left=Math.random()*90+'%'; s.style.top=Math.random()*90+'%';
+  s.style.animationDuration=(6+Math.random()*6)+'s'; s.style.animationDelay=(Math.random()*6)+'s';
+  field.appendChild(s);
+}
+const ctafield=document.getElementById('ctafield');
+['SEE','PREDICT','SIMULATE','ACT','OPPORTUNITY'].forEach((w,n)=>{
+  const s=document.createElement('div'); s.className='signal c'+(1+n%4);
+  s.textContent=w; s.style.left=(10+n*18)+'%'; s.style.top=(20+ (n%3)*25)+'%';
+  s.style.animationDuration='8s'; s.style.animationDelay=(n*.6)+'s';
+  ctafield.appendChild(s);
+});
+
+// hero typography swap
+setTimeout(()=>{ document.getElementById('l1').classList.add('out'); document.getElementById('l2').classList.remove('out'); },2600);
+const loopSpans=document.querySelectorAll('#loopstrip span'); let li=0;
+setInterval(()=>{ loopSpans.forEach(s=>s.classList.remove('on')); loopSpans[li%loopSpans.length].classList.add('on'); li++; },1100);
+
+// nav active state
+const sections=['hero','anticipate','simulate','cta','about'].map(id=>document.getElementById(id));
+const navlinks=document.querySelectorAll('.navlink');
+window.addEventListener('scroll',()=>{
+  let cur='hero';
+  sections.forEach(sec=>{ if(sec.getBoundingClientRect().top<window.innerHeight*0.4) cur=sec.id; });
+  navlinks.forEach(a=>a.classList.toggle('active', a.dataset.t===cur));
+},{passive:true});
+
+// reveal on scroll
+const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); } }),{threshold:.2});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// converge chips staggered
+const chips=document.querySelectorAll('#converge .chip');
+const io2=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ chips.forEach((c,idx)=>setTimeout(()=>c.style.opacity=1,idx*120)); io2.disconnect(); } }),{threshold:.3});
+if(document.getElementById('converge')) io2.observe(document.getElementById('converge'));
+
+// recover score ring
+const ring=document.getElementById('ring'), scorenum=document.getElementById('scorenum');
+let scored=false;
+const io3=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting && !scored){ scored=true;
+  let v=0; const target=82; const iv=setInterval(()=>{ v++; scorenum.textContent=v; ring.style.strokeDashoffset=264-(264*v/100); if(v>=target) clearInterval(iv); },14);
+}}),{threshold:.3});
+io3.observe(document.getElementById('recover'));
+
+// anticipate slider
+const slider=document.getElementById('slider'), driftLine=document.getElementById('drift'), driftstat=document.getElementById('driftstat');
+const gapline=document.getElementById('gapline'), gaplabel=document.getElementById('gaplabel');
+const drifts=[
+ "0,135 100,133 200,131 300,129 400,126 500,124 600,121",
+ "0,135 100,133 200,129 300,124 400,119 500,114 600,109",
+ "0,135 100,133 200,125 300,115 400,104 500,93 600,83",
+ "0,135 100,133 200,120 300,102 400,84 500,68 600,55",
+ "0,135 100,133 200,117 300,95 400,73 500,55 600,42",
+ "0,135 100,133 200,125 300,110 400,87 500,65 600,45"
+];
+const baseEndY=[121,119,117,116,115,115];
+const pcts=[2,5,9,14,16,18];
+slider.addEventListener('input',()=>{
+  const v=+slider.value;
+  driftLine.setAttribute('points',drifts[v]);
+  driftstat.textContent='+'+pcts[v]+'%';
+  const driftEnd=+drifts[v].split(' ').pop().split(',')[1];
+  const baseEnd=baseEndY[v];
+  gapline.setAttribute('y1',driftEnd); gapline.setAttribute('y2',baseEnd);
+  gaplabel.setAttribute('y', (driftEnd+baseEnd)/2 + 4);
+});
+
+// simulate slider
+const price=document.getElementById('price'), simprice=document.getElementById('simprice'), delta=document.getElementById('delta'), simread=document.getElementById('simread');
+price.addEventListener('input',()=>{
+  const v=+price.value; simprice.textContent='₹'+v; const d=v-500; delta.textContent=(d>0?'+':'')+'₹'+d;
+  if(d===0) simread.textContent='This is the current price — no change simulated yet.';
+  else if(d>0) simread.textContent='A ₹'+d+' increase — SaleSight projects fewer conversions but higher margin per sale on this opportunity.';
+  else simread.textContent='A ₹'+Math.abs(d)+' discount — SaleSight projects more conversions on this opportunity, at a lower margin per sale.';
+});
+
+// architecture accordion + pipeline highlight
+const pls=document.querySelectorAll('.pipeline .pl');
+document.querySelectorAll('.layer').forEach((l,idx)=>{
+  const box=l.querySelector('.items'); box.textContent=l.dataset.items;
+  l.addEventListener('click',()=>{
+    l.classList.toggle('open');
+    pls.forEach(p=>p.classList.remove('on'));
+    if(l.classList.contains('open') && pls[idx]) pls[idx].classList.add('on');
+  });
+});
+const archIO=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ pls.forEach((p,i)=>setTimeout(()=>{p.classList.add('on'); setTimeout(()=>p.classList.remove('on'),500);}, i*350)); } }),{threshold:.4});
+if(document.getElementById('arch')) archIO.observe(document.getElementById('arch'));
+
+// engine network build
+const inputs=['TRANSACTION','PRODUCT','BEHAVIOUR','MERCHANT','TEMPORAL','HISTORICAL'];
+const outputs=['OPPORTUNITY SCORE','DEMAND SIGNAL','SCENARIO DELTA','CONFIDENCE','RECOMMENDED ACTION'];
+const lines=document.getElementById('lines'), nodes=document.getElementById('nodes');
+const cx=300, cy=230;
+const NS='http://www.w3.org/2000/svg';
+function place(list, radius, cls, startAngle, span){
+  list.forEach((label,idx)=>{
+    const ang=startAngle + (list.length>1? (idx/(list.length-1))*span : 0);
+    const x=cx+radius*Math.cos(ang), y=cy+radius*Math.sin(ang);
+    const ln=document.createElementNS(NS,'line');
+    ln.setAttribute('x1',x); ln.setAttribute('y1',y); ln.setAttribute('x2',cx); ln.setAttribute('y2',cy);
+    lines.appendChild(ln);
+    const g=document.createElementNS(NS,'g'); g.setAttribute('class',cls);
+    const c=document.createElementNS(NS,'circle'); c.setAttribute('cx',x); c.setAttribute('cy',y); c.setAttribute('r',34); c.setAttribute('class','node');
+    g.appendChild(c);
+    const words=label.split(' ');
+    const t=document.createElementNS(NS,'text'); t.setAttribute('x',x); t.setAttribute('text-anchor','middle'); t.setAttribute('class','node-label');
+    const startY = y - ((words.length-1)*6);
+    words.forEach((w,wi)=>{ const ts=document.createElementNS(NS,'tspan'); ts.setAttribute('x',x); ts.setAttribute('y',startY+wi*12); ts.textContent=w; t.appendChild(ts); });
+    g.appendChild(t); nodes.appendChild(g);
+  });
+}
+// inputs along the left arc, outputs along the right arc — no overlap, no crossing
+place(inputs, 210, 'in', Math.PI*0.62, Math.PI*0.78);
+place(outputs, 220, 'out', -Math.PI*0.39, Math.PI*0.78);
+
+// impact transforms stagger
+const tforms=document.querySelectorAll('.transform');
+const io4=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ tforms.forEach((t,idx)=>setTimeout(()=>t.classList.add('on'),idx*250)); io4.disconnect(); } }),{threshold:.3});
+if(tforms.length) io4.observe(document.getElementById('impact'));
+</script>
+</body>
+</html>
